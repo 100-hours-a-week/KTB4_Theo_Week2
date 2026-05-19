@@ -1,6 +1,8 @@
+package theozoo.domain.animal;
+
 public class Snake extends Reptile{
-    Snake(String name, int age, String species, int fullness){
-        super(name, age, "Reptile", fullness);
+    public Snake(String name, int age, int fullness){
+        super(name, age, fullness);
     }
 
     @Override

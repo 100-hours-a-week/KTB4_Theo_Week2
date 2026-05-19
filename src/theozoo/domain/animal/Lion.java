@@ -1,6 +1,8 @@
+package theozoo.domain.animal;
+
 public class Lion extends Mammal{
-    Lion(String name, int age, String species, int fullness){
-        super(name, age, species, fullness);
+    public Lion(String name, int age, int fullness){
+        super(name, age, fullness);
     }
 
     @Override
