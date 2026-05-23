@@ -44,7 +44,7 @@ public abstract class Animal {
         System.out.println("=======================");
     }
 
-    public void feed(Food food) { // 동물이 먹이 먹기
+    synchronized public void feed(Food food) { // 동물이 먹이 먹기
         if (fullness > FULLNESS_NORMAL_LIMIT) {
             System.out.println(name + "는 이미 배부른 상태입니다.");
             return;
@@ -54,7 +54,7 @@ public abstract class Animal {
             fullness = FULLNESS_MAX_LIMIT;
         }
         System.out.println(name + "에게 " + food.getName() + "을/를 주었습니다.");
-        System.out.println("현재 상태 : " + getFullnessStatus()); // 포만감 출력
+        System.out.println(name + "의 현재 상태 : " + getFullnessStatus() + " / 숫자 : " + getFullness()); // 포만감 출력
     }
 
     public String getFullnessStatus() { // 동물의 배고픔 상태 출력하기
@@ -65,6 +65,14 @@ public abstract class Animal {
         } else {
             return "배부름";
         }
+    }
+
+    public synchronized void decreaseFullness(){ // HungryThread 가 호출할 메서드 (초당 10씩 포만감 감소)
+        fullness = Math.max(fullness-10,FULLNESS_MIN_LIMIT); // 음수가 되지 않도록 처리
+    }
+
+    public synchronized boolean isHungry(){ // HungryThread 가 배고픈 동물을 찾기 위한 메서드
+        return fullness<=FULLNESS_HUNGRY_LIMIT;
     }
 
     public abstract void makeSound();
